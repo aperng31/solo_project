@@ -1,0 +1,60 @@
+body {
+  background-color: green;
+}
+
+#app-body {
+  display: flex;
+  gap: 10px;
+}
+
+.gif-list {
+  width: 150px;
+  border-radius: 4px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.my-gif {
+  position: absolute;
+}
+
+#main-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+#header {
+  display: flex;
+
+  img {
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+#board {
+  height: 90vh;
+  width: 100%;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  // flex: 1;
+  resize: both;
+  position: relative;
+
+}
+
+#sidepanel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  width: fit-content;
+  height: 99vh;
+  overflow-y: auto;
+}

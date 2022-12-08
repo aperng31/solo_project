@@ -1,5 +1,5 @@
 import React from 'react';
-import Gifbox from './Gifbox';
+import Gifbox from './Gifbox.jsx';
 
 class Sidepanel extends React.Component {
 

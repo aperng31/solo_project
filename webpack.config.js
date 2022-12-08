@@ -19,7 +19,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.m?js$/,
+        test: /.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
@@ -47,5 +47,8 @@ module.exports = {
     hot: true,
     compress: true,
     historyApiFallback: true,
+    proxy: {
+      '/api': 'http://localhost:3000',
+    }
   }
 }

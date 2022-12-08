@@ -29,24 +29,19 @@ class Draw extends React.Component {
 
   copyGif(url) {
     const key = uniqid();
-    // const newPiece = {url: url, xCoor: '0px', yCoor: '0px', key: key, id: key, width: this.state.width};
-    const newPiece = {url: url, key: key, id: key, width: this.state.width};
+    const newPiece = {url: url, xCoor: '0px', yCoor: '0px', key: key, id: key, width: this.state.width};
     this.setState({pieceList: this.state.pieceList.concat(newPiece)})
   }
 
   toggleDelete(e) {
-    console.log('toggle')
     this.state.deleteMode ? e.target.classList.remove('pressed') : e.target.classList.add('pressed')
     this.setState({ deleteMode: !this.state.deleteMode })
   }
 
   deleteGif(id) {
-    console.log(id);
     if(this.state.deleteMode) {
       const newPieceList = this.state.pieceList.filter(el => id !== el.id);
-      console.log(newPieceList);
-      this.setState({pieceList: this.state.pieceList.filter(el => id !== el.id)})      
-      console.log(this.state.pieceList);
+      this.setState({ pieceList: newPieceList })      
     }
   }
 
@@ -62,12 +57,11 @@ class Draw extends React.Component {
   }
 
   updateWidth(value) {
-    console.log(value);
     this.setState({width: `${value}px`})
   }
 
   savePiece() {
-    console.log(this.state.pieceList);
+    // console.log(this.state.pieceList);
     const body = {gifList: this.state.pieceList, author: 'Alan', pieceName: 'helloworld'}
     const requestOptions = {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)};
     fetch('/api', requestOptions)
@@ -82,7 +76,10 @@ class Draw extends React.Component {
         <Sidepanel copyGif={ this.copyGif } updateWidth={ this.updateWidth }/>
         <div id='main-container'>
           <Header toggleDelete={ this.toggleDelete } deleteGif={ this.deleteGif } savePiece={ this.savePiece }/>
-          <Board copyGif={ this.copyGif } deleteMode={ this.state.deleteMode } pieceList={ this.state.pieceList } deleteGif={ this.deleteGif } updateLoc={ this.updateLoc }/>          
+          <Board copyGif={ this.copyGif } deleteMode={ this.state.deleteMode } 
+          pieceList={ this.state.pieceList } deleteGif={ this.deleteGif } 
+          updateLoc={ this.updateLoc }
+          />          
         </div>
 
       </div>

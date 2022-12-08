@@ -16,8 +16,9 @@ class Draw extends React.Component {
       pieceList: [],
       width: '150px',
       deleteMode: false,
+      inputMode: true, //true === gif, false === draw
     }
-    this.boardRef = React.createRef();
+    this.canvasRef = React.createRef();
 
     this.copyGif = this.copyGif.bind(this);
     this.toggleDelete = this.toggleDelete.bind(this);
@@ -25,6 +26,7 @@ class Draw extends React.Component {
     this.savePiece = this.savePiece.bind(this);
     this.updateLoc = this.updateLoc.bind(this);
     this.updateWidth = this.updateWidth.bind(this);
+    this.toggleGifDraw = this.toggleGifDraw.bind(this);
   }
 
   copyGif(url) {
@@ -34,10 +36,41 @@ class Draw extends React.Component {
   }
 
   toggleDelete(e) {
-    // const banner = document.getElementById('banner');
-    // banner.innerHTML = 'Delete mode';
-    this.state.deleteMode ? e.target.classList.remove('pressed') : e.target.classList.add('pressed')
+    // const banner = document.getElementById('banner'); dont need to declare var, var references id?!?
+    banner.classList.add('show-mode');
+    if(this.state.deleteMode) {
+      banner.innerHTML = 'Delete Gif Off';
+      e.target.classList.remove('pressed')
+    } 
+    else{ 
+      banner.innerHTML = 'Delete Gif Active';
+      e.target.classList.add('pressed')
+    }
+    setTimeout(() => {
+      banner.innerHTML = '';
+      banner.classList.remove('show-mode');
+    }, 3000);
     this.setState({ deleteMode: !this.state.deleteMode })
+  }
+
+  toggleGifDraw(e) {
+    banner.classList.add('show-mode');
+    if(this.state.inputMode) { //true = currently gif-mode, switch to draw-mode
+      e.target.classList.remove('gif-mode')
+      e.target.classList.add('draw-mode')
+      banner.innerHTML = 'Draw-mode'
+    }
+    else {
+      e.target.classList.remove('draw-mode')
+      e.target.classList.add('gif-mode')    
+      banner.innerHTML = 'Gif-mode'
+    }
+    this.canvasRef.current.toggleBoardCanvas();
+    setTimeout(() => {
+      banner.innerHTML = '';
+      banner.classList.remove('show-mode');
+    }, 3000);
+    this.setState({inputMode: !this.state.inputMode})
   }
 
   deleteGif(id) {
@@ -62,31 +95,39 @@ class Draw extends React.Component {
     this.setState({width: `${value}px`})
   }
 
-  savePiece() {
-    // console.log(this.state.pieceList);
-    
-    const banner = document.getElementById('banner');
+  // saveDrawing() {
+  //   this.canvasRef.current.saveDrawing();
+  // }
+
+  async savePiece() {
+    const data = await this.canvasRef.current.saveDrawing()
+      // console.log(data);
+      // console.log('after data')
+    // const banner = document.getElementById('banner');
     if(this.state.pieceList.length === 0) {
-      banner.innerHTML = 'Select at least one GIF!';
+      banner.innerHTML = 'Need atleast one GIF';
+      banner.classList.add('needGif');
       setTimeout(() => {
         banner.innerHTML = '';
-      }, 1000);
+        banner.classList.remove('needGif');
+      }, 4000);
       return
     }
-    const body = {gifList: this.state.pieceList, author: 'Alan', pieceName: 'helloworld'}
+    const body = {gifList: this.state.pieceList, author: 'Alan', pieceName: 'helloworld', backgroundData: data };
     const requestOptions = {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)};
     fetch('/api', requestOptions)
       .then(res => {
         if(res.status === 200) {
-          banner.innerHTML = 'Artwork saved to gallery!';
+          banner.innerHTML = 'Artwork saved!';
           banner.classList.add('saved');
           setTimeout(() => {
             banner.innerHTML = '';
             banner.classList.remove('saved');
-          }, 1000);
+          }, 4000);
         }
       })
-      .catch(err => console.log('ERROR: ', err));
+      .catch(err => console.log('ERROR: ', err));      
+
   }
 
   render() {
@@ -95,10 +136,11 @@ class Draw extends React.Component {
       <div id='app-body'>
         <Sidepanel copyGif={ this.copyGif } updateWidth={ this.updateWidth }/>
         <div id='main-container'>
-          <Header toggleDelete={ this.toggleDelete } deleteGif={ this.deleteGif } savePiece={ this.savePiece }/>
+          <Header toggleDelete={ this.toggleDelete } deleteGif={ this.deleteGif }
+          savePiece={ this.savePiece } toggleGifDraw={ this.toggleGifDraw }/>
           <Board copyGif={ this.copyGif } deleteMode={ this.state.deleteMode } 
           pieceList={ this.state.pieceList } deleteGif={ this.deleteGif } 
-          updateLoc={ this.updateLoc }
+          updateLoc={ this.updateLoc } ref={ this.canvasRef } inputMode={ this.state.inputMode}
           />          
         </div>
 

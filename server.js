@@ -9,7 +9,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/api', pieceController.getPieces, (req, res) => {
-  // console.log('/api get');
+  console.log('/api get');
+  // console.log(res.locals.response);
   return res.status(200).send(res.locals.response);
 })
 

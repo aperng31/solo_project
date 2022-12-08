@@ -14,6 +14,7 @@ const Schema = mongoose.Schema;
 const pieceSchema = new Schema({
   author: String,
   pieceName: String,
+  backgroundData: String,
   gifList: [{
     url: String,
     xCoor: String, 

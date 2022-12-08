@@ -15,12 +15,13 @@ class Header extends React.Component {
         <div id='header-title'>
           <h1>GifStory</h1>
           <hr></hr>
-          <span><h3>&nbsp;If a picture is worth 1000 words, what does a GIF go for?</h3></span>
+          <span><h3>If a picture is worth 1000 words, what does a GIF go for?</h3></span>
         </div>
         <div id='controls'>
           <h4 id='banner'></h4>
+          <img className='gif-mode' onClick={ (e) => { this.props.toggleGifDraw(e) } }></img>      
           <img src={ saveIcon } onClick={ this.props.savePiece }></img>            
-          <img src={ deleteIcon } onClick={ (e) => { this.props.toggleDelete(e) }}></img>        
+          <img src={ deleteIcon } onClick={ (e) => { this.props.toggleDelete(e) }}></img>  
           <Link to='/gallery'>
             <button className="switch-page">To Gallery &raquo;</button>
           </Link>             

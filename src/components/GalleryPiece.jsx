@@ -16,7 +16,7 @@ class GalleryPiece extends React.Component {
           <h3><span>Title:</span> { this.props.pieceName } </h3>          
           <h3><span>Artist:</span> { this.props.author }</h3>
         </div>
-        <div className='gallery-board'>
+        <div className='gallery-board' style={{'backgroundImage': `url(${this.props.data})`}}>
           { gifLocs }
         </div>        
       </div>

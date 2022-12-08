@@ -1,5 +1,5 @@
 @import 'gallery.scss';
-
+@import 'variables';
 html {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
@@ -30,6 +30,10 @@ body {
   width: 150px;
   border-radius: 4px;
   position: absolute;
+  &:hover {
+    cursor: pointer;
+  }
+  z-index: 10;
 }
 
 #main-container {
@@ -49,7 +53,7 @@ body {
   #header-title{
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
   }
   hr {
     border: 1px solid black;
@@ -77,6 +81,12 @@ body {
       transition: .1s;
     }
   }
+  .gif-mode {
+    content: url('../icons/gificon.png')
+  }
+  .draw-mode {
+    content: url('../icons/pencil.png')
+  }
 }
 
 #controls {
@@ -87,11 +97,20 @@ body {
 
 #banner {
   margin: 0;
+  padding: 4px 8px 4px 8px;
   // border: 1px solid 
 }
 .saved {
-  border: 1px solid #77dd77;
-  color: #77dd77;
+  border: 1px solid $confirmGreen;
+  color: $confirmGreen;
+}
+.needGif {
+  border: 1px solid $lighterRed;
+  color: $lighterRed;
+}
+.show-mode {
+  border: 1px solid $lighterBlack;
+  color: $lighterBlack;
 }
 
 
@@ -105,9 +124,20 @@ body {
 #board {
   height: 660px;
   width: 1100px;
-  background-color: white;
+  // background-color: white;
   border-radius: 4px;
   position: relative;
+  top: -661px;
+  right: -1px;
+  // z-index: 0;
+}
+.board-gif-mode {
+  background-color: transparent;
+  z-index: 10;
+}
+.board-draw-mode {
+  background-color: white;
+  z-index: -10 ;
 }
 
 #sidepanel {

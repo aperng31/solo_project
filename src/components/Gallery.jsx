@@ -29,9 +29,11 @@ class Gallery extends React.Component {
     const pieceList = this.state.pieceList;
     const galleryList = [];
     for(let i = 0; i < pieceList.length; i++) {
-      const newGalleryPiece = <GalleryPiece piece={ pieceList[i].gifList } pieceName={ pieceList[i].pieceName } author={ pieceList[i].author } />
+      const newGalleryPiece = <GalleryPiece piece={ pieceList[i].gifList } pieceName={ pieceList[i].pieceName } 
+      author={ pieceList[i].author } data={ pieceList[i].backgroundData } />
       galleryList.push(newGalleryPiece);
     }
+    // console.log(this.state.pieceList[0])
     return (
       <div id='gallery-main'>
         <div id='gallery-container'>

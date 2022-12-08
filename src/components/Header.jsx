@@ -14,13 +14,10 @@ class Header extends React.Component {
       <div id='header'>
         <h3>GifStory</h3>
         <img src={ deleteIcon } onClick={ (e) => { this.props.toggleDelete(e) }}></img>    
-        <Link to='/gallery' className='galleryLink'>
-          <button type="button" className="btnSecondary">
-            To Gallery
-          </button>
-        </Link>  
-        <img src={ saveIcon } onClick={ this.props.savePiece }></img>    
-  
+        <img src={ saveIcon } onClick={ this.props.savePiece }></img>         
+        <Link to='/gallery'>
+          <button>To Gallery &raquo;</button>
+        </Link>   
       </div>
     )
   }

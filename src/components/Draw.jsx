@@ -11,8 +11,10 @@ class Draw extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // gifArray: [],
+      author: '',
+      pieceName: '',
       pieceList: [],
+      width: '150px',
       deleteMode: false,
     }
     this.boardRef = React.createRef();
@@ -22,31 +24,35 @@ class Draw extends React.Component {
     this.deleteGif = this.deleteGif.bind(this);
     this.savePiece = this.savePiece.bind(this);
     this.updateLoc = this.updateLoc.bind(this);
+    this.updateWidth = this.updateWidth.bind(this);
   }
 
   copyGif(url) {
     const key = uniqid();
-    const newPiece = {url: url, xCoor: '0px', yCoor: '0px', key: key, id: key};
-    // console.log(newPiece);
+    // const newPiece = {url: url, xCoor: '0px', yCoor: '0px', key: key, id: key, width: this.state.width};
+    const newPiece = {url: url, key: key, id: key, width: this.state.width};
     this.setState({pieceList: this.state.pieceList.concat(newPiece)})
   }
 
   toggleDelete(e) {
+    console.log('toggle')
     this.state.deleteMode ? e.target.classList.remove('pressed') : e.target.classList.add('pressed')
     this.setState({ deleteMode: !this.state.deleteMode })
   }
 
   deleteGif(id) {
+    console.log(id);
     if(this.state.deleteMode) {
       const newPieceList = this.state.pieceList.filter(el => id !== el.id);
-      this.setState({pieceList: newPieceList})      
+      console.log(newPieceList);
+      this.setState({pieceList: this.state.pieceList.filter(el => id !== el.id)})      
+      console.log(this.state.pieceList);
     }
   }
 
   updateLoc(coords, id) {
     const newPieceList = this.state.pieceList.map(el => {
       if(id === el.id) {
-        console.log('in if' + el.id);
         el.xCoor = coords[0];
         el.yCoor = coords[1];
       }
@@ -55,19 +61,28 @@ class Draw extends React.Component {
     this.setState({ pieceList: newPieceList });
   }
 
+  updateWidth(value) {
+    console.log(value);
+    this.setState({width: `${value}px`})
+  }
+
   savePiece() {
-    const requestOptions = {method: 'POST', header: { 'Content-Type': 'application/json' }, body: this.state.pieceList};
     console.log(this.state.pieceList);
+    const body = {gifList: this.state.pieceList, author: 'Alan', pieceName: 'helloworld'}
+    const requestOptions = {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)};
+    fetch('/api', requestOptions)
+      .then(res => console.log(res))
+      .catch(err => console.log('ERROR: ', err));
   }
 
   render() {
     
     return (
       <div id='app-body'>
-        <Sidepanel copyGif={ this.copyGif }/>
+        <Sidepanel copyGif={ this.copyGif } updateWidth={ this.updateWidth }/>
         <div id='main-container'>
           <Header toggleDelete={ this.toggleDelete } deleteGif={ this.deleteGif } savePiece={ this.savePiece }/>
-          <Board copyGif={ this.copyGif } pieceList={ this.state.pieceList } deleteGif={ this.deleteGif } updateLoc={ this.updateLoc }/>          
+          <Board copyGif={ this.copyGif } deleteMode={ this.state.deleteMode } pieceList={ this.state.pieceList } deleteGif={ this.deleteGif } updateLoc={ this.updateLoc }/>          
         </div>
 
       </div>

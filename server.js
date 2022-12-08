@@ -13,9 +13,9 @@ app.get('/api', pieceController.getPieces, (req, res) => {
   return res.status(200).send(res.locals.response);
 })
 
-app.post('/api', (req, res) => {
-  console.log('post / ')
-  return res.status(200).sendFile(path.join(__dirname, './dist/index.html'));
+app.post('/api', pieceController.createPiece, (req, res) => {
+  console.log('success');
+  return res.status(200);
 });
 
 app.listen(PORT, () => {

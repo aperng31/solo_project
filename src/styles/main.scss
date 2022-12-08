@@ -1,3 +1,5 @@
+@import 'gallery.scss';
+
 body {
   background-color: green;
 }
@@ -7,7 +9,7 @@ body {
   gap: 10px;
 }
 
-.gif-list, .tempdiv {
+.gif-list {
   width: 150px;
   border-radius: 4px;
 
@@ -28,7 +30,7 @@ body {
 
 #header {
   display: flex;
-
+  align-items: center;
   img {
     background: #f5f5f5;
     border: 1px solid #ccc;
@@ -54,13 +56,13 @@ body {
   outline: none;
 }
 
-#board {
+#board, .gallery-board {
   height: 90vh;
-  width: 100%;
+  width: 1000px;
   background-color: white;
   border: 1px solid black;
   border-radius: 4px;
-  resize: both;
+  // resize: both;
   position: relative;
 
 }
@@ -74,8 +76,4 @@ body {
   height: 95vh;
   overflow-y: auto;
   border-radius: 4px;
-}
-
-.tempdiv {
-  background-color: black;
 }

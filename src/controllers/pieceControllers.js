@@ -12,8 +12,13 @@ pieceController.getPieces = (req, res, next) => {
 };
 
 pieceController.createPiece = (req, res, next) => {
-  // models.Piece
-  console.log('create piece');
+  console.log(req.body);
+  const {gifList, author, pieceName} = req.body;
+  models.Piece.create({gifList, author, pieceName})
+    .then(res=> {
+      console.log(res);
+      next()
+    })
 }
 
 module.exports = pieceController

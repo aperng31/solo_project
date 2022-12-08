@@ -12,12 +12,12 @@ mongoose.connect(MONGO_URI, {
 const Schema = mongoose.Schema;
 
 const pieceSchema = new Schema({
-  name: String,
   author: String,
+  pieceName: String,
   gifList: [{
     url: String,
-    x_coord: String, 
-    y_coord: String
+    xCoor: String, 
+    yCoor: String,
   }],
 });
 

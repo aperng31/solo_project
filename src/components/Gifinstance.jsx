@@ -6,17 +6,18 @@ class Gifinstance extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      xCoord: '',
-      yCoord: ''
-    }
     this.handleClick = this.handleClick.bind(this);
     this.getXYcoords = this.getXYcoords.bind(this);
   }
   handleClick(e) {
-    this.props.deleteGif(this.props.id)
-    const coords = this.getXYcoords(e);
-    this.props.updateLoc(coords, this.props.id);
+    if(this.props.deleteMode) {
+      this.props.deleteGif(this.props.id)      
+    }
+    // else {
+    //   console.log(this.props.deleteMode);
+    //   const coords = this.getXYcoords(e);
+    //   this.props.updateLoc(coords, this.props.id);      
+    // }
   }
 
   getXYcoords(e) {
@@ -35,17 +36,15 @@ class Gifinstance extends React.Component {
       }
     }
     return [xcoo, ycoo];
-    // console.log(xcoo, ycoo);
-    // console.log(transformStr, newStr);
   }
 
   componentDidUpdate() {
-    console.log('gifIn update');
+    
   }
   render() {
     return (
       <Draggable bounds='parent'>
-        <img className='gif-list my-gif' onClick={ (e) => {this.handleClick(e)} } src={ this.props.url } draggable={ false } ></img>
+        <img className='gif-list my-gif' onClick={ (e) => {this.handleClick(e)} } src={ this.props.url } style={{'width':this.props.width}} draggable={ false } ></img>
       </Draggable>
     )
   }

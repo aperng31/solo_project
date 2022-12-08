@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import GalleryPiece from './GalleryPiece.jsx';
 
 class Gallery extends React.Component {
   constructor(props) {
@@ -25,12 +26,25 @@ class Gallery extends React.Component {
   }
 
   render() {
+    const pieceList = this.state.pieceList;
+    const galleryList = [];
+    for(let i = 0; i < pieceList.length; i++) {
+      const newGalleryPiece = <GalleryPiece piece={ pieceList[i].gifList } />
+      galleryList.push(newGalleryPiece);
+    }
     return (
-      <div>
-        <h1>HELLO GALLERY</h1>
-        <Link to='/'>
-          <button>Draw</button>
-        </Link>
+      <div id='gallery-container'>
+        <div id='gallery-header'>
+          <Link to='/'>
+            <button>&laquo; To Canvas</button>
+          </Link>            
+          <h1>HELLO GALLERY</h1>
+        
+        </div>
+        <div id='gallery-body'>
+          { galleryList }          
+        </div>
+
       </div>
     )
   }

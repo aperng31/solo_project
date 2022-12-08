@@ -9,13 +9,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/api', pieceController.getPieces, (req, res) => {
-  console.log('/api get');
+  // console.log('/api get');
   return res.status(200).send(res.locals.response);
 })
 
 app.post('/api', pieceController.createPiece, (req, res) => {
-  console.log('success');
-  return res.status(200);
+  // console.log('success');
+  return res.status(200).send();
 });
 
 app.listen(PORT, () => {

@@ -15,19 +15,15 @@ class Sidepanel extends React.Component {
       gifArray.push(newGif);
     }
     
-    function onlyNumber(e) {
-      if(!/[0-9]/.test(e.key) && e.key !== 'Backspace') {
-        e.preventDefault();
-      }
-    }
-
     return (
       <div id='sidepanel'>
-        <div>
+        <div id='width-panel'>
           <label htmlFor='width'>Width: </label>
-          <input type="range" min="10" max="500" className="slider" id="width" onMouseUp={(e) => this.props.updateWidth(e.target.value)}></input>
+          <input type="range" min="10" max="500" defaultValue="150" className="slider" id="width" onMouseUp={(e) => this.props.updateWidth(e.target.value)}></input>
         </div>
-        { gifArray }
+        <div id='sidepanel'>
+          { gifArray }          
+        </div>
       </div>
     )
   }

@@ -46,7 +46,7 @@ class Gifinstance extends React.Component {
   render() {
     return (
       <Draggable bounds='parent'>
-        <img className='gif-list my-gif' onClick={ (e) => {this.handleClick(e)} } 
+        <img className='gif-board' onClick={ (e) => {this.handleClick(e)} } 
         src={ this.props.data.url } style={{ 'width':this.props.data.width }} 
         draggable={ false } ref={ this.myRef }
         ></img>

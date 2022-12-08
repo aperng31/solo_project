@@ -12,12 +12,19 @@ class Header extends React.Component {
 
     return (
       <div id='header'>
-        <h3>GifStory</h3>
-        <img src={ deleteIcon } onClick={ (e) => { this.props.toggleDelete(e) }}></img>    
-        <img src={ saveIcon } onClick={ this.props.savePiece }></img>         
-        <Link to='/gallery'>
-          <button>To Gallery &raquo;</button>
-        </Link>   
+        <div id='header-title'>
+          <h1>GifStory</h1>
+          <hr></hr>
+          <span><h3>&nbsp;If a picture is worth 1000 words, what does a GIF go for?</h3></span>
+        </div>
+        <div id='controls'>
+          <h4 id='banner'></h4>
+          <img src={ saveIcon } onClick={ this.props.savePiece }></img>            
+          <img src={ deleteIcon } onClick={ (e) => { this.props.toggleDelete(e) }}></img>        
+          <Link to='/gallery'>
+            <button className="switch-page">To Gallery &raquo;</button>
+          </Link>             
+        </div>
       </div>
     )
   }

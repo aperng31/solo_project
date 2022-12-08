@@ -18,6 +18,7 @@ const pieceSchema = new Schema({
     url: String,
     xCoor: String, 
     yCoor: String,
+    width: String,
   }],
 });
 

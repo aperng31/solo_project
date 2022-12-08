@@ -1,8 +1,37 @@
+$lighterBlack: lighten(black, 20%);
 
+#gallery-main {
+  display: flex;
+  justify-content: center;
+}
 
 #gallery-header {
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 1100px;
+  height: 60px;
+  position: relative;
+
+  #header-title{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  button {
+    position: absolute;
+    left: 10px;
+    top: 14px;
+  }
+  h1 {
+    margin: 0;
+  }
+}
+
+#gallery-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 #gallery-body {
@@ -11,3 +40,41 @@
   align-items: center;
   gap: 10px;
 }
+
+.gallery-piece {
+  display: flex;
+  gap: 20px;
+}
+
+.author-title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 200px;
+  height: fit-content;
+  padding: 8px;
+  margin-top: 4px;
+  border-radius: 4px;
+  border: 1px solid grey;
+  box-shadow: -4px 4px 4px 2px rgba(0,0,0, 0.2);
+  
+  h3 {
+    margin: 0;
+  }
+  span {
+    color: $lighterBlack;
+  }
+}
+
+.gallery-board {
+  height: 660px;
+  width: 1100px;
+  border: 1px solid grey;
+  background-color: white;
+  border-radius: 4px;
+  position: relative;
+  box-shadow: -4px 4px 4px 2px rgba(0,0,0, 0.2);
+
+}
+
+//scaleX -1 to flip horizontal axis

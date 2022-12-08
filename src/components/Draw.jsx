@@ -34,6 +34,8 @@ class Draw extends React.Component {
   }
 
   toggleDelete(e) {
+    // const banner = document.getElementById('banner');
+    // banner.innerHTML = 'Delete mode';
     this.state.deleteMode ? e.target.classList.remove('pressed') : e.target.classList.add('pressed')
     this.setState({ deleteMode: !this.state.deleteMode })
   }
@@ -62,10 +64,28 @@ class Draw extends React.Component {
 
   savePiece() {
     // console.log(this.state.pieceList);
+    
+    const banner = document.getElementById('banner');
+    if(this.state.pieceList.length === 0) {
+      banner.innerHTML = 'Select at least one GIF!';
+      setTimeout(() => {
+        banner.innerHTML = '';
+      }, 1000);
+      return
+    }
     const body = {gifList: this.state.pieceList, author: 'Alan', pieceName: 'helloworld'}
     const requestOptions = {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)};
     fetch('/api', requestOptions)
-      .then(res => console.log(res))
+      .then(res => {
+        if(res.status === 200) {
+          banner.innerHTML = 'Artwork saved to gallery!';
+          banner.classList.add('saved');
+          setTimeout(() => {
+            banner.innerHTML = '';
+            banner.classList.remove('saved');
+          }, 1000);
+        }
+      })
       .catch(err => console.log('ERROR: ', err));
   }
 

@@ -14,9 +14,9 @@ pieceController.getPieces = (req, res, next) => {
 };
 
 pieceController.createPiece = (req, res, next) => {
-  console.log(req.body.backgroundData);
-  const {gifList, author, pieceName, backgroundData} = req.body;
-  models.Piece.create({gifList, author, pieceName, backgroundData})
+  // console.log(req.body.backgroundData);
+  const {gifList, artist, pieceTitle, backgroundData} = req.body;
+  models.Piece.create({gifList, artist, pieceTitle, backgroundData})
     .then(res => {
       // console.log(res);
       next()

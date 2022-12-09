@@ -12,8 +12,8 @@ mongoose.connect(MONGO_URI, {
 const Schema = mongoose.Schema;
 
 const pieceSchema = new Schema({
-  author: String,
-  pieceName: String,
+  artist: String,
+  pieceTitle: String,
   backgroundData: String,
   gifList: [{
     url: String,

@@ -15,7 +15,7 @@ class Board extends React.Component {
   }
 
   saveDrawing() {
-    console.log('saveD')    
+    // console.log('saveD')    
     return new Promise(resolve => {
       this.myCanvas.current
       .exportImage("png")
@@ -42,7 +42,7 @@ class Board extends React.Component {
       myBoard.classList.add('board-gif-mode')
       myBoard.classList.remove('board-draw-mode')
     }
-    console.log(this.state.myCanvasColor)
+    // console.log(this.state.myCanvasColor)
   }
   componentDidUpdate() {
     console.log('board update');
@@ -62,7 +62,7 @@ class Board extends React.Component {
       borderRadius: '0.25rem',
     };
     return (
-      <div>
+      <div id='canvas-board-container'>
         <ReactSketchCanvas
           ref={this.myCanvas}
           strokeWidth={5}

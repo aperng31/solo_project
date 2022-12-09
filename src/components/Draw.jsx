@@ -11,8 +11,8 @@ class Draw extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      author: '',
-      pieceName: '',
+      artist: '',
+      pieceTitle: '',
       pieceList: [],
       width: '150px',
       deleteMode: false,
@@ -27,6 +27,8 @@ class Draw extends React.Component {
     this.updateLoc = this.updateLoc.bind(this);
     this.updateWidth = this.updateWidth.bind(this);
     this.toggleGifDraw = this.toggleGifDraw.bind(this);
+    this.updateArtist = this.updateArtist.bind(this);
+    this.updateTitle = this.updateTitle.bind(this);
   }
 
   copyGif(url) {
@@ -41,10 +43,12 @@ class Draw extends React.Component {
     if(this.state.deleteMode) {
       banner.innerHTML = 'Delete Gif Off';
       e.target.classList.remove('pressed')
+      document.body.style.cursor = "default";
     } 
     else{ 
       banner.innerHTML = 'Delete Gif Active';
       e.target.classList.add('pressed')
+      document.body.style.cursor = "no-drop";
     }
     setTimeout(() => {
       banner.innerHTML = '';
@@ -55,7 +59,7 @@ class Draw extends React.Component {
 
   toggleGifDraw(e) {
     banner.classList.add('show-mode');
-    if(this.state.inputMode) { //true = currently gif-mode, switch to draw-mode
+    if(this.state.inputMode) { //true = currently gif-mode, switch to draw-mode (false)
       e.target.classList.remove('gif-mode')
       e.target.classList.add('draw-mode')
       banner.innerHTML = 'Draw-mode'
@@ -100,20 +104,32 @@ class Draw extends React.Component {
   // }
 
   async savePiece() {
-    const data = await this.canvasRef.current.saveDrawing()
       // console.log(data);
       // console.log('after data')
     // const banner = document.getElementById('banner');
+    if(this.state.artist === '' || this.state.pieceTitle === '') {
+      console.log('inner')
+      banner.innerHTML = 'Need title/artist';
+      banner.classList.add('needGif');
+      setTimeout(() => {
+        banner.innerHTML = '';
+        banner.classList.remove('needGif');
+      }, 3000);
+      return
+    }
     if(this.state.pieceList.length === 0) {
       banner.innerHTML = 'Need atleast one GIF';
       banner.classList.add('needGif');
       setTimeout(() => {
         banner.innerHTML = '';
         banner.classList.remove('needGif');
-      }, 4000);
+      }, 3000);
       return
     }
-    const body = {gifList: this.state.pieceList, author: 'Alan', pieceName: 'helloworld', backgroundData: data };
+    
+    const data = await this.canvasRef.current.saveDrawing()
+
+    const body = {gifList: this.state.pieceList, artist: this.state.artist, pieceTitle: this.state.pieceTitle, backgroundData: data };
     const requestOptions = {method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)};
     fetch('/api', requestOptions)
       .then(res => {
@@ -130,11 +146,20 @@ class Draw extends React.Component {
 
   }
 
+  updateTitle(e) {
+    this.setState({pieceTitle: e.target.value})
+  }
+
+  updateArtist(e) {
+    this.setState({artist: e.target.value})
+  }
+
   render() {
     
     return (
       <div id='app-body'>
-        <Sidepanel copyGif={ this.copyGif } updateWidth={ this.updateWidth }/>
+        <Sidepanel copyGif={ this.copyGif } updateWidth={ this.updateWidth }
+        updateTitle={this.updateTitle} updateArtist={this.updateArtist}/>
         <div id='main-container'>
           <Header toggleDelete={ this.toggleDelete } deleteGif={ this.deleteGif }
           savePiece={ this.savePiece } toggleGifDraw={ this.toggleGifDraw }/>

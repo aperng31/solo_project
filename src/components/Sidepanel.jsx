@@ -18,6 +18,8 @@ class Sidepanel extends React.Component {
     return (
       <div id='sidepanel'>
         <div id='width-panel'>
+          <input id='title' type='text' placeholder='Title' onChange={(e) => this.props.updateTitle(e)}></input>
+          <input id='artist' type='text' placeholder='Artist' onChange={(e) => this.props.updateArtist(e)}></input>
           <label htmlFor='width'>Width: </label>
           <input type="range" min="10" max="500" defaultValue="150" className="slider" id="width" onMouseUp={(e) => this.props.updateWidth(e.target.value)}></input>
         </div>
